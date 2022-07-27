@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/customer-layout.html}">
+<head>
+    <title>Home</title>
+</head>
+
+<body>
+    <main layout:fragment="content">
+        <!-- BEST PRODUCT -->
+        <div>
+            <div class="container p-5">
+                <div class="row justify-content-evenly text-center mb-5">
+                    <h1 class="mb-5">Best Product</h1>
+                    <div class="col">
+                        <img class="best-product" th:src="@{/images/a1.jpg}" alt="">
+                        <h3>PRODUCT 1</h3>
+                    </div>
+                    <div class="col">
+                        <img class="best-product" th:src="@{/images/a2.jpg}" alt="">
+                        <h3>PRODUCT 2</h3>
+                    </div>
+                    <div class="col">
+                        <img class="best-product" th:src="@{/images/a3.jpg}" alt="">
+                        <h3>PRODUCT 3</h3>
+                    </div>
+                </div>
+                <div class="row justify-content-evenly text-center">
+                    <div class="col">
+                        <img class="best-product" th:src="@{/images/a4.jpg}" alt="">
+                        <h3>PRODUCT 4</h3>
+                    </div>
+                    <div class="col">
+                        <img class="best-product" th:src="@{images/a5.jpg}" alt="">
+                        <h3>PRODUCT 5</h3>
+                    </div>
+                    <div class="col">
+                        <img class="best-product" th:src="@{images/a6.jpg}" alt="">
+                        <h3>PRODUCT 6</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /BEST PRODUCT -->
+
+        <!-- About Toy World-->
+        <div class="bg-success">
+            <div class="p-3 text-center">
+                <h1 class="text-white">About Toy World</h1>
+            </div>
+        </div>
+        <div class="container">
+            <div class="m-5">
+                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quis unde, quos nostrum sit ipsum id
+                distinctio
+                quae est eveniet beatae ex animi voluptas, nam quo sint voluptatem cum, earum velit!
+                <br><br>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolor unde dignissimos, voluptates fuga
+                mollitia
+                est sequi cupiditate quam sed suscipit dolore exercitationem nam assumenda minus incidunt iste
+                temporibus id
+                quaerat.
+                <br><br>
+                Lorem ipsum dolor sit amet consectetur, adipisicing elit. Quibusdam vero reiciendis rem provident
+                dolores ex
+                aliquid placeat sunt quo debitis possimus adipisci quisquam pariatur sed, atque itaque fugiat veritatis.
+                Facere.
+            </div>
+        </div>
+        <!-- /About Toy World -->
+    </main>
+</body>
+</html>

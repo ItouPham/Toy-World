@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+</head>
+<body>
+<header th:fragment="header">
+    <div class="container p-3">
+            <span>
+                <i class="fa-solid fa-phone fa-lg"></i>
+                123456789
+            </span>
+        <span class="ms-4">
+                <i class="fa-regular fa-envelope fa-lg"></i>
+                email@gmail.com
+            </span>
+    </div>
+    <div class="bg-dark header-mid">
+        <div class="container h-100">
+            <div class="row h-100 align-content-center text-center">
+                <a class="col text-light text-decoration-none common-hover" th:href="@{/}">
+                    <h2>TOY WORLD</h2>
+                </a>
+                <div class="col-6">
+                    <div class="input-group">
+                        <input type="text" class="form-control border border-secondary border-2"
+                               placeholder="Search">
+                        <button class="btn btn-danger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="col align-self-center">
+                    <div class="user-menu">
+                        <a class="text-decoration-none text-light common-hover" href="#">
+                            <i class="fa-solid fa-circle-user fa-2xl"></i>
+                        </a>
+                        <div class="mt-1 user-dropdown-menu">
+                            <a th:href="@{/register}">Register</a>
+                            <a th:href="@{/login}">Login</a>
+                        </div>
+                    </div>
+                    <a class="text-decoration-none text-light ms-5 common-hover" href="#">
+                        <i class="fa-solid fa-cart-shopping fa-2xl"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bg-light bg-opacity-25 header-bottom shadow">
+        <div class="container h-100">
+            <div class="row h-100 align-content-center text-center">
+                <a class="col menu-item" th:href="@{/}">HOME</a>
+                <a class="col menu-item" href="#">PRODUCT</a>
+                <a class="col menu-item" th:href="@{/admin/product}">PRODUCT MANAGEMENT</a>
+                <a class="col menu-item" th:href="@{/admin/user}">USER MANAGEMENT</a>
+            </div>
+        </div>
+    </div>
+</header>
+</body>
+</html>

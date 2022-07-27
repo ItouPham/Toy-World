@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/admin-layout.html}">
+
+<head>
+</head>
+
+<body>
+    <main layout:fragment="content">
+        <div class="container">
+            <div class="col-6 m-auto">
+                <div class="p-5 border mt-5 mb-5 shadow">
+                    <h1 class="text-center mb-5">Update User</h1>
+                    <div class="d-flex justify-content-between mb-4">
+                        <h6>Email:</h6>
+                        <input type="text" class="p-1 w-75" disabled value="email@gmail.com">
+                    </div>
+                    <div class="d-flex justify-content-between mb-4">
+                        <h6>Password:</h6>
+                        <input type="password" style="width:65%" class="p-1 w-75">
+                    </div>
+                    <div class="d-flex justify-content-between mb-4">
+                        <h6>First Name:</h6>
+                        <input type="text" style="width:65%" class="p-1 w-75">
+                    </div>
+                    <div class="d-flex justify-content-between mb-4">
+                        <h6>Last Name:</h6>
+                        <input type="text" style="width:65%" class="p-1 w-75">
+                    </div>
+                    <div class="d-flex justify-content-between mb-4">
+                        <h6>Telephone:</h6>
+                        <input type="text" style="width:65%" class="p-1 w-75">
+                    </div>
+                    <div class="d-flex justify-content-between mb-4">
+                        <h6>Address:</h6>
+                        <input type="text" style="width:65%" class="p-1 w-75">
+                    </div>
+                    <div class="d-flex justify-content-between mb-4">
+                        <h6>Role:</h6>
+                        <select name="" id="" style="width:65%" class="p-1 w-75">
+                            <option value="" selected>CUSTOMER</option>
+                            <option value="">EMPLOYEE</option>
+                            <option value="">ADMIN</option>
+                        </select>
+                    </div>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-success p-2 ps-5 pe-5 mt-4 common-background-hover">Save</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</body>
+
+</html>

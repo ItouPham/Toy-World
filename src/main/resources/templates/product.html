@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/customer-layout.html}">
+
+<head>
+</head>
+
+<body>
+<main layout:fragment="content">
+    <div class="bg-success bg-opacity-75 p-2 text-center shadow">
+            <span class="fw-bold">
+                <a class="text-decoration-none text-dark common-hover" th:href="@{/}">Home </a> /
+                <span class="text-white">Product</span>
+            </span>
+    </div>
+    <h1 class="text-center m-5">Product</h1>
+    <div class="container">
+        <div class="row">
+            <!-- SIDE MENU -->
+            <div class="col-3">
+                <div class="mb-5">
+                    <h5 class="fw-bold">Menu</h5>
+                    <ul class="p-0">
+                        <li class="list-unstyled side-menu-item"><a class="text-dark text-decoration-none"
+                                                                    href="#">HOME</a></li>
+                        <li class="list-unstyled side-menu-item"><a class="text-dark text-decoration-none"
+                                                                    href="#">PRODUCT</a></li>
+                        <li class="list-unstyled side-menu-item"><a class="text-dark text-decoration-none"
+                                                                    href="#">ABOUT US</a></li>
+                        <li class="list-unstyled side-menu-item"><a class="text-dark text-decoration-none"
+                                                                    href="#">CONTACT US</a></li>
+                        <li class="list-unstyled side-menu-item"><a class="text-dark text-decoration-none"
+                                                                    href="#">BLOG</a></li>
+                    </ul>
+                </div>
+                <div class="mb-5">
+                    <h5 class="fw-bold">Category</h5>
+                    <ul class="p-0">
+                        <li class="list-unstyled side-menu-item"><a class="text-dark text-decoration-none"
+                                                                    href="#">KID TOYS</a></li>
+                        <li class="list-unstyled side-menu-item"><a class="text-dark text-decoration-none"
+                                                                    href="#">DOLLS</a></li>
+                        <li class="list-unstyled side-menu-item"><a class="text-dark text-decoration-none"
+                                                                    href="#">KEY TOYS</a></li>
+                        <li class="list-unstyled side-menu-item"><a class="text-dark text-decoration-none"
+                                                                    href="#">BOY TOYS</a></li>
+                    </ul>
+                </div>
+                <div class="mb-5">
+                    <h5 class="fw-bold">Discount</h5>
+                    <ul class="p-0">
+                        <li class="list-unstyled side-menu-item">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    5% or More
+                                </label>
+                            </div>
+                        </li>
+                        <li class="list-unstyled side-menu-item">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    10% or More
+                                </label>
+                            </div>
+                        </li>
+                        <li class="list-unstyled side-menu-item">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    20% or More
+                                </label>
+                            </div>
+                        </li>
+                        <li class="list-unstyled side-menu-item">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    30% or More
+                                </label>
+                            </div>
+                        </li>
+                        <li class="list-unstyled side-menu-item">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    40% or More
+                                </label>
+                            </div>
+                        </li>
+                        <li class="list-unstyled side-menu-item">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                <label class="form-check-label" for="flexCheckDefault">
+                                    50% or More
+                                </label>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /SIDE MENU -->
+
+            <!-- PRODUCT -->
+            <div class="col-9">
+                <div class="row justify-content-between">
+                    <div class="mb-4" style="width: 30%;">
+                        <div class="card border border-dark text-center w-100">
+                            <img th:src="@{/images/a1.jpg}" class="card-img-top border-bottom" alt="...">
+                            <div class="card-body">
+                                <a class="text-decoration-none text-dark" href="#"><h5 class="card-title">Product 1</h5>
+                                </a>
+                                <p class="card-text">$180.00</p>
+                                <a href="#" class="btn btn-primary w-75">Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-4" style="width: 30%;">
+                        <div class="card border border-dark text-center w-100">
+                            <img th:src="@{/images/a1.jpg}" class="card-img-top border-bottom" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Product 1</h5>
+                                <p class="card-text">$180.00</p>
+                                <a href="#" class="btn btn-primary w-75">Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-4" style="width: 30%;">
+                        <div class="card border border-dark text-center w-100" style="width: 30%">
+                            <img th:src="@{/images/a1.jpg}" class="card-img-top border-bottom" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Product 1</h5>
+                                <p class="card-text">$180.00</p>
+                                <a href="#" class="btn btn-primary w-75">Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-4" style="width: 30%;">
+                        <div class="card border border-dark text-center w-100" style="width: 30%">
+                            <img th:src="@{/images/a1.jpg}" class="card-img-top border-bottom" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Product 1</h5>
+                                <p class="card-text">$180.00</p>
+                                <a href="#" class="btn btn-primary w-75">Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-4" style="width: 30%;">
+                        <div class="card border border-dark text-center w-100" style="width: 30%">
+                            <img th:src="@{/images/a1.jpg}" class="card-img-top border-bottom" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Product 1</h5>
+                                <p class="card-text">$180.00</p>
+                                <a href="#" class="btn btn-primary w-75">Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-4" style="width: 30%;">
+                        <div class="card border border-dark text-center w-100" style="width: 30%">
+                            <img th:src="@{/images/a1.jpg}" class="card-img-top border-bottom" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Product 1</h5>
+                                <p class="card-text">$180.00</p>
+                                <a href="#" class="btn btn-primary w-75">Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-4" style="width: 30%;">
+                        <div class="card border border-dark text-center w-100" style="width: 30%">
+                            <img th:src="@{/images/a1.jpg}" class="card-img-top border-bottom" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title">Product 1</h5>
+                                <p class="card-text">$180.00</p>
+                                <a href="#" class="btn btn-primary w-75">Add to cart</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- /PRODUCT -->
+        </div>
+    </div>
+</main>
+</body>
+</html>

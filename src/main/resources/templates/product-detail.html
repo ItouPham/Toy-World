@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/customer-layout.html}">
+
+<head>
+</head>
+
+<body>
+<main layout:fragment="content">
+    <div class="bg-success bg-opacity-75 p-2 text-center shadow">
+            <span class="fw-bold">
+                <a class="text-decoration-none text-dark common-hover" th:href="@{/}">Home </a> /
+                <a class="text-decoration-none text-dark common-hover" th:href="@{/product}">Product </a>/
+                <span class="text-white">Product Detail</span>
+            </span>
+    </div>
+    <h1 class="text-center m-5">Product Detail</h1>
+    <div class="container">
+        <div class="row">
+            <div class="col-4 text-center">
+                <img class="border border-dark" th:src="@{/images/a1.jpg}" alt="">
+            </div>
+            <div class="col-8">
+                <h3 class="text-danger">Product name</h3>
+                <p>
+                <h5>$65.00</h5>
+                </p>
+                <p><strong>Size:</strong> 2 feet</p>
+                <p><strong>9</strong> left in stock</p>
+                <p><strong>Quantity</strong></p>
+                <div class="row">
+                    <div class="col-3">
+                        <div class="input-group p-2 text-center align-items-center bg-opacity-25 bg-secondary justify-content-between">
+                            <span class="minus" href="#"><i class="fa-solid fa-minus"></i></span>
+                            <span class="num">01</span>
+                            <span class="plus" href="#"><i class="fa-solid fa-plus"></i></span>
+                            <script>
+                            const plus = document.querySelector(".plus"),
+                                minus = document.querySelector(".minus"),
+                                num = document.querySelector(".num");
+
+                            let a = 1;
+
+                            plus.addEventListener("click", () => {
+                                if (a < 10) {
+                                    a++;
+                                    a = (a < 10) ? "0" + a : a;
+                                    num.innerText = a;
+                                }
+                            });
+
+                            minus.addEventListener("click", () => {
+                                if (a > 1) {
+                                    a--;
+                                    a = (a < 10) ? "0" + a : a;
+                                    num.innerText = a;
+                                }
+                            });                  
+                            </script>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <button class="btn btn-dark w-100 h-100 common-background-hover">Add to bag</button>
+                    </div>
+                </div>
+                <div class="mt-4">
+                    <i class="fa-solid fa-box-open"></i>
+                    Free Shipping & Returns: On all orders over $200
+                </div>
+                <div class="p-4 mt-3 w-100 bg-opacity-25 bg-secondary text-center">
+                    <img th:src="@{/images/single-product-13.png}" alt="">
+                    <p class="mt-2">Guarantee safe & secure checkout</p>
+                </div>
+                <ul class="d-flex p-0 mt-3">
+                    <li class="list-unstyled">
+                        <a class="text-decoration-none text-dark  common-hover" href="#">
+                            <i class="fab fa-twitter fa-xl"></i> Twitter
+                        </a>
+                    </li>
+                    <li class="list-unstyled ms-3">
+                        <a class="text-decoration-none text-dark common-hover" href="#">
+                            <i class="fa-brands fa-facebook-square fa-xl"></i> Facebook
+                        </a>
+                    </li>
+                    <li class="list-unstyled ms-3">
+                        <a class="text-decoration-none text-dark  common-hover" href="#">
+                            <i class="fab fa-instagram fa-xl"></i> Instagram
+                        </a>
+                    </li>
+                    <li class="list-unstyled ms-3">
+                        <a class="text-decoration-none text-dark  common-hover" href="#">
+                            <i class="fab fa-youtube fa-xl"></i> Youtube
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="bg-warning p-3 mt-5 ">
+        <h4 class="text-center">DESCRIPTION</h4>
+    </div>
+    <div class="container">
+        <div class="m-5">
+            <p><strong>Lorem ipsum dolor sit</strong></p>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Libero molestiae incidunt culpa soluta,
+                labore
+                voluptates minus velit beatae earum. Rerum officiis nisi totam vero magni nihil itaque, molestias
+                omnis
+                fugiat.</p>
+            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Expedita, quibusdam vitae possimus itaque
+                at
+                exercitationem obcaecati, praesentium natus eius, fugit aliquid? Esse minima ea quia corrupti minus
+                aperiam nisi fuga?</p>
+        </div>
+    </div>
+</main>
+</body>
+</html>

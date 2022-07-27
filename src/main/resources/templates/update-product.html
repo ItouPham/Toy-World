@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/admin-layout.html}">
+
+<head>
+</head>
+
+<body>
+    <main layout:fragment="content">
+        <div class="container">
+            <div class="col-6 m-auto">
+                <div class="p-5 border mt-5 mb-5 shadow">
+                    <h1 class="text-center mb-5">Update Product</h1>
+                    <div class="d-flex justify-content-between mb-4">
+                        <h6>Product Name:</h6>
+                        <input type="text" class="p-1 w-75">
+                    </div>
+                    <div class="d-flex justify-content-between mb-4">
+                        <h6>Category:</h6>
+                        <select name="" id="" style="width:65%" class="p-1 w-75">
+                            <option value="" selected>KID TOYS</option>
+                            <option value="">DOLLS</option>
+                            <option value="">KEY TOYS</option>
+                            <option value="">BOY TOYS</option>
+                        </select>
+                    </div>
+                    <div class="d-flex justify-content-between mb-4">
+                        <h6>Price:</h6>
+                        <input type="number" style="width:65%" class="p-1 w-75">
+                    </div>
+                    <div class="d-flex justify-content-between mb-4">
+                        <h6>Quantity:</h6>
+                        <input type="number" style="width:65%" class="p-1 w-75">
+                    </div>
+                    <div class="d-flex justify-content-between mb-4">
+                        <h6>Size(Feet):</h6>
+                        <input type="number" style="width:65%" class="p-1 w-75">
+                    </div>
+                    <div class="d-flex justify-content-between mb-4">
+                        <h6>Description:</h6>
+                        <input type="text" style="width:65%" class="p-1 w-75">
+                    </div>
+                    <div class="d-flex justify-content-between mb-4">
+                        <h6>Image:</h6>
+                        <div style="width: 75%;">
+                            <script>
+                                function chooseFile(fileInput) {
+                                    if (fileInput.files && fileInput.files[0]) {
+                                        var reader = new FileReader();
+
+                                        reader.onload = function (e) {
+                                            $('#image').attr('src', e.target.result);
+                                        }
+
+                                        reader.readAsDataURL(fileInput.files[0]);
+                                    }
+                                }
+                            </script>
+                            <img id="image" th:src="@{/images/no-image.png}" width="200" height="200"
+                                class="img-fluid ${3|rounded-top, rounded-right,rounded-bottom,rounded-left,rounded-circle, |}"
+                                alt="">
+                            <input type="file" onchange="chooseFile(this)" class="p-1 w-75"></input>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="button" class="btn btn-success p-2 ps-5 pe-5 mt-5 common-background-hover">Add</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</body>
+
+</html>

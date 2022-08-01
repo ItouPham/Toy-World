@@ -8,31 +8,76 @@
 </head>
 
 <body>
-    <main layout:fragment="content">
-        <div class="container">
-            <div class="w-75 m-auto">
-                <div class="w-50 ms-auto me-auto mt-4 mb-4 border shadow text-center pt-4 pb-4">
-                    <h1 class="text-center m-2">Register</h1>
-                    <p>Already have an account?<a href="#" class="text-decoration-none text-dark fw-bold common-hover">Login</a></p>
-                    <input type="text" class="bg-input w-75 p-2 mt-4 border border-0" placeholder="First name">
-                    <input type="text" class="bg-input w-75 p-2 mt-4 border border-0" placeholder="Last name">
-                    <input type="text" class="bg-input w-75 p-2 mt-4 border border-0" placeholder="Your email">
-                    <input type="password" class="bg-input w-75 p-2 mt-4 border border-0" placeholder="Password">
-                    <button type="button" class="btn btn-dark w-75 p-2 mt-5 mb-4 common-background-hover">Sign Up</button>
-                    <p>or Signup with</p>
-                    <div class="d-flex w-75 m-auto justify-content-between mt-4 mb-3">
-                            <button type="button" class="btn btn-outline-dark p-2 border border-secondary" style="min-width: 105px;">
-                                <i class="fa-brands fa-facebook-f text-primary"></i><span class="fw-bold"> Facebook</span></button>
-                            <button type="button" class="btn btn-outline-dark p-2  border border-secondary" style="min-width: 105px;">
-                                <i class="fa-brands fa-twitter text-info"></i><span class="fw-bold"> Twitter</span></button>
-                            <button type="button" class="btn btn-outline-dark p-2  border border-secondary" style="min-width: 105px;">
-                                <i class="fa-brands fa-google text-danger"></i><span class="fw-bold"> Google</span></button>
-                            </button>
+<main layout:fragment="content">
+    <div class="container">
+        <div class="w-75 m-auto">
+            <div class="w-50 ms-auto me-auto mt-4 mb-4 border shadow text-center pt-4 pb-4">
+
+                <h1 class="text-center m-2">Register</h1>
+                <p>Already have an account?<a th:href="@{/login}"
+                                              class="text-decoration-none text-dark fw-bold common-hover">Login</a></p>
+                <form th:action="@{/register}" method="post" th:object="${user}">
+                    <div class="w-75 m-auto mt-4">
+                        <input type="text" class="bg-input border border-0 w-100 p-2" placeholder="Your email"
+                               th:field="*{email}" th:errorClass="is-invalid">
+                        <div th:if="${#fields.hasErrors('email')}"
+                             th:errors="*{email}" class="invalid-feedback text-start fst-italic">
+                        </div>
                     </div>
+
+                    <div class="w-75 m-auto mt-4">
+                        <input type="password" class="bg-input border border-0 w-100 p-2" placeholder="Password"
+                               th:field="*{password}" th:errorClass="is-invalid">
+                        <div th:if="${#fields.hasErrors('password')}"
+                             th:errors="*{password}" class="invalid-feedback text-start fst-italic">
+                        </div>
+                    </div>
+
+                    <div class="w-75 m-auto mt-4">
+                        <input type="password" class="bg-input border border-0 w-100 p-2"
+                               placeholder="Confirm password"
+                               th:field="*{confirmPassword}" th:errorClass="is-invalid">
+                        <div th:if="${#fields.hasErrors('confirmPassword')}"
+                             th:errors="*{confirmPassword}" class="invalid-feedback text-start fst-italic">
+                        </div>
+                    </div>
+
+                    <div class="w-75 m-auto mt-4">
+                        <input type="text" class="bg-input border border-0 w-100 p-2" placeholder="First name"
+                               th:field="*{firstName}" th:errorClass="is-invalid">
+                        <div th:if="${#fields.hasErrors('firstName')}"
+                             th:errors="*{firstName}" class="invalid-feedback text-start fst-italic">
+                        </div>
+                    </div>
+
+                    <div class="w-75 m-auto mt-4">
+                        <input type="text" class="bg-input border border-0 w-100 p-2" placeholder="Last name"
+                               th:field="*{lastName}" th:errorClass="is-invalid">
+                        <div th:if="${#fields.hasErrors('lastName')}"
+                             th:errors="*{lastName}" class="invalid-feedback text-start fst-italic">
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-dark w-75 p-2 mt-5 mb-4 common-background-hover">Sign Up
+                    </button>
+                </form>
+                <p>or Signup with</p>
+                <div class="d-flex w-75 m-auto justify-content-between mt-4 mb-3">
+                    <button type="button" class="btn btn-outline-dark p-2 border border-secondary"
+                            style="min-width: 105px;">
+                        <i class="fa-brands fa-facebook-f text-primary"></i><span class="fw-bold"> Facebook</span>
+                    </button>
+                    <button type="button" class="btn btn-outline-dark p-2  border border-secondary"
+                            style="min-width: 105px;">
+                        <i class="fa-brands fa-twitter text-info"></i><span class="fw-bold"> Twitter</span></button>
+                    <button type="button" class="btn btn-outline-dark p-2  border border-secondary"
+                            style="min-width: 105px;">
+                        <i class="fa-brands fa-google text-danger"></i><span class="fw-bold"> Google</span></button>
+                    </button>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
+</main>
 </body>
 
 </html>

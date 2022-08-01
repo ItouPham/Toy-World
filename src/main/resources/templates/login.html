@@ -8,34 +8,55 @@
 </head>
 
 <body>
-    <main layout:fragment="content">
-        <div class="container">
-            <div class="w-75 m-auto">
-                <div class="w-50 ms-auto me-auto mt-4 mb-4 border shadow text-center pt-4 pb-4 rounded-1">
-                    <h1 class="text-center m-4">Login</h1>
-                    <p>Don't have an account yet? <a href="#" class="text-decoration-none text-dark fw-bold common-hover">Sign up</a>
-                        for free</p>
-                    <input type="text" class="bg-secondary bg-opacity-25 w-75 p-2 mt-4 border border-0" placeholder="Your email">
-                    <input type="password" class="bg-secondary bg-opacity-25 w-75 p-2 mt-4 border border-0" placeholder="Password">
+<main layout:fragment="content">
+    <div class="container">
+        <div class="w-75 m-auto">
+            <div class="w-50 ms-auto me-auto mt-4 mb-4 border shadow text-center pt-4 pb-4 rounded-1">
+                <h1 class="text-center m-4">Login</h1>
+                <p>Don't have an account yet? <a href="#" class="text-decoration-none text-dark fw-bold common-hover">Sign
+                    up</a>
+                    for free</p>
+                <form>
+                    <div th:if="${successMessage}"
+                         class="col-12 alert alert-success alert-dismissible fade show"
+                         role="alert"
+                    >
+                        <span th:text="${successMessage}"></span>
+                        <button type="button" class="close" data-dismiss="alert"
+                                aria-label="Close"
+                        >
+                            <span aria-hidden="true">&times; </span>
+                        </button>
+                    </div>
+                    <input type="text" class="bg-secondary bg-opacity-25 w-75 p-2 mt-4 border border-0"
+                           placeholder="Your email">
+                    <input type="password" class="bg-secondary bg-opacity-25 w-75 p-2 mt-4 border border-0"
+                           placeholder="Password">
                     <div class="w-75 m-auto text-end mt-2 ">
                         <a href="#" class="text-decoration-none text-dark fw-bold">Forgot Password</a>
                     </div>
                     <button type="button" class="btn btn-dark w-75 p-2 m-4 common-background-hover"> Login</button>
-                    <p>or Login with</p>
-                    <div class="d-flex w-75 m-auto justify-content-between mb-3 mt-4">
-                            <button type="button" class="btn btn-outline-dark p-2 border border-secondary" style="min-width: 105px;">
-                                <i class="fa-brands fa-facebook-f text-primary"></i><span class="fw-bold"> Facebook</span></button>
-                            <button type="button" class="btn btn-outline-dark p-2  border border-secondary" style="min-width: 105px;">
-                                <i class="fa-brands fa-twitter text-info"></i><span class="fw-bold"> Twitter</span></button>
-                            <button type="button" class="btn btn-outline-dark p-2  border border-secondary" style="min-width: 105px;">
-                                <i class="fa-brands fa-google text-danger"></i><span class="fw-bold"> Google</span></button>
-                            </button>
-                    </div>
+                </form>
+
+                <p>or Login with</p>
+                <div class="d-flex w-75 m-auto justify-content-between mb-3 mt-4">
+                    <button type="button" class="btn btn-outline-dark p-2 border border-secondary"
+                            style="min-width: 105px;">
+                        <i class="fa-brands fa-facebook-f text-primary"></i><span class="fw-bold"> Facebook</span>
+                    </button>
+                    <button type="button" class="btn btn-outline-dark p-2  border border-secondary"
+                            style="min-width: 105px;">
+                        <i class="fa-brands fa-twitter text-info"></i><span class="fw-bold"> Twitter</span></button>
+                    <button type="button" class="btn btn-outline-dark p-2  border border-secondary"
+                            style="min-width: 105px;">
+                        <i class="fa-brands fa-google text-danger"></i><span class="fw-bold"> Google</span></button>
+                    </button>
                 </div>
             </div>
-
         </div>
-    </main>
+
+    </div>
+</main>
 </body>
 
 </html>

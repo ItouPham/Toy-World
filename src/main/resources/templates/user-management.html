@@ -3,6 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/admin-layout.html}">
 <head>
+    <title>User Management</title>
 </head>
 
 <body>
@@ -14,6 +15,10 @@
             </span>
     </div>
     <h1 class="text-center m-5">User management</h1>
+    <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <span th:text="${successMessage}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
     <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
         <span th:text="${successMessage}"></span>
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -60,13 +65,43 @@
                     </a>
                 </td>
                 <td class="text-center">
-                    <a th:href="@{/admin/user/delete/{id}(id=${user.id})}">
+                    <button>
+                    <a th:data-id="${user.id}"
+                    th:data-name="${user.email}"
+                    onclick="showConfirmModalDialog(this.getAttribute('data-id'),this.getAttribute('data-name'))">
                         <i class="fa-solid fa-trash fa-xl text-dark common-hover"></i>
                     </a>
+                    </button>
                 </td>
             </tr>
             </tbody>
         </table>
+        <script>
+            function showConfirmModalDialog(id,name){
+                $('#user-email').text(name);
+                $('#yesOption').attr('href','/admin/user/delete/' + id);
+                $('#confirmationId').modal('show');
+            }
+        </script>
+
+        <!-- Modal -->
+        <div class="modal fade" id="confirmationId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Confirmation</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Do you want to delete account with email "<span id="user-email"></span>"
+                    </div>
+                    <div class="modal-footer">
+                        <a id="yesOption" type="button" class="btn btn-danger">Yes</a>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </main>
 </body>

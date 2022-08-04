@@ -1,7 +1,11 @@
 package com.MyProject.ToyWorld.seed;
 
+import com.MyProject.ToyWorld.entity.Category;
+import com.MyProject.ToyWorld.entity.Product;
 import com.MyProject.ToyWorld.entity.Role;
 import com.MyProject.ToyWorld.entity.User;
+import com.MyProject.ToyWorld.repository.CategoryRepository;
+import com.MyProject.ToyWorld.repository.ProductRepository;
 import com.MyProject.ToyWorld.repository.RoleRepository;
 import com.MyProject.ToyWorld.repository.UserRepository;
 import org.springframework.context.ApplicationListener;
@@ -18,17 +22,36 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
     private UserRepository userRepository;
     private RoleRepository roleRepository;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private CategoryRepository categoryRepository;
+    private ProductRepository productRepository;
 
-    public DataSeedingListener(UserRepository userRepository,
-                               RoleRepository roleRepository,
-                               BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public DataSeedingListener(UserRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder bCryptPasswordEncoder, CategoryRepository categoryRepository, ProductRepository productRepository) {
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.categoryRepository = categoryRepository;
+        this.productRepository = productRepository;
     }
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent arg0) {
+        if(!productRepository.findByProductName("Product 1").isPresent()){
+            productRepository.save(new Product("Product 1"));
+        }
+
+        //Category
+        if(!categoryRepository.findByCategoryName("KID TOYS").isPresent()){
+            categoryRepository.save(new Category("KID TOYS"));
+        }
+        if(!categoryRepository.findByCategoryName("DOLLS").isPresent()){
+            categoryRepository.save(new Category("DOLLS"));
+        }
+        if(!categoryRepository.findByCategoryName("KEY TOYS").isPresent()){
+            categoryRepository.save(new Category("KEY TOYS"));
+        }
+        if(!categoryRepository.findByCategoryName("BOY TOYS").isPresent()){
+            categoryRepository.save(new Category("BOY TOYS"));
+        }
 
         //Role
         if (!roleRepository.findByRoleName(com.MyProject.ToyWorld.constant.Role.ADMIN.name()).isPresent()) {

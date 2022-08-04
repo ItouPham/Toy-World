@@ -3,6 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/admin-layout.html}">
 <head>
+    <title>Product Management</title>
 </head>
 
 <body>
@@ -43,12 +44,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Product 1</td>
-                        <td>Toy</td>
-                        <td>29.00</td>
-                        <td>20</td>
+                    <tr th:each="product, index : ${products}">
+                        <td th:text="${index.count}"></td>
+                        <td th:text="${product.productName}"></td>
+                        <td></td>
+                        <td th:text="${product.price}"></td>
+                        <td th:text="${product.quantity}"></td>
                         <td class="text-center">
                             <img th:src="@{/images/a1.jpg}" alt="" width="100" height="100" class="border">
                         </td>
@@ -63,51 +64,8 @@
                             </a>
                         </td>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Product 1</td>
-                        <td>Toy</td>
-                        <td>29.00</td>
-                        <td>20</td>
-                        <td class="text-center">
-                            <img th:src="@{/images/a1.jpg}" alt="" width="100" height="100" class="border">
-                        </td>
-                        <td class="text-center">
-                            <a href="#">
-                                <i class="fa-solid fa-pen-to-square fa-xl text-dark common-hover"></i>
-                            </a>
-                        </td>
-                        <td class="text-center">
-                            <a href="#">
-                                <i class="fa-solid fa-trash fa-xl text-dark common-hover"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>Product 1</td>
-                        <td>Toy</td>
-                        <td>29.00</td>
-                        <td>20</td>
-                        <td class="text-center">
-                            <img th:src="@{/images/a1.jpg}" alt="" width="100" height="100" class="border">
-                        </td>
-                        <td class="text-center">
-                            <a href="#">
-                                <i class="fa-solid fa-pen-to-square fa-xl text-dark common-hover"></i>
-                            </a>
-                        </td>
-                        <td class="text-center">
-                            <a href="#">
-                                <i class="fa-solid fa-trash fa-xl text-dark common-hover"></i>
-                            </a>
-                        </td>
-                    </tr>
                 </tbody>
             </table>
         </div>
     </main>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
-        crossorigin="anonymous"></script>
 </body>

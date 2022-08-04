@@ -1,12 +1,11 @@
 package com.MyProject.ToyWorld.controller;
 
+import com.MyProject.ToyWorld.dto.admin.AddNewProductDTO;
 import com.MyProject.ToyWorld.dto.admin.AddNewUserDTO;
 import com.MyProject.ToyWorld.dto.admin.EditUserDTO;
 import com.MyProject.ToyWorld.entity.Role;
 import com.MyProject.ToyWorld.entity.User;
-import com.MyProject.ToyWorld.service.AdminService;
-import com.MyProject.ToyWorld.service.AuthService;
-import com.MyProject.ToyWorld.service.RoleService;
+import com.MyProject.ToyWorld.service.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +14,10 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.swing.text.html.Option;
 import javax.validation.Valid;
+import java.io.Console;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin")
@@ -24,12 +26,16 @@ public class AdminController {
     private AuthService authService;
     private RoleService roleService;
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private CategoryService categoryService;
+    private ProductService productService;
 
-    public AdminController(AdminService adminService, AuthService authService, RoleService roleService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public AdminController(AdminService adminService, AuthService authService, RoleService roleService, BCryptPasswordEncoder bCryptPasswordEncoder, CategoryService categoryService, ProductService productService) {
         this.adminService = adminService;
         this.authService = authService;
         this.roleService = roleService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+        this.categoryService = categoryService;
+        this.productService = productService;
     }
 
     @GetMapping()
@@ -38,13 +44,24 @@ public class AdminController {
     }
 
     @GetMapping("/product")
-    public String showProductList() {
+    public String showProductList(Model model) {
+        model.addAttribute("products",productService.findAllProduct());
         return "product-management";
     }
 
     @GetMapping("/product/add")
-    public String showAddProductPage() {
+    public String showAddProductPage(Model model) {
+        model.addAttribute("product", new AddNewProductDTO());
+        model.addAttribute("categories", categoryService.findAllCategory());
         return "add-new-product";
+    }
+
+    @PostMapping("/product/add")
+    public String processAddNewProduct(@ModelAttribute("product") AddNewProductDTO addNewProductDTO,
+                                       RedirectAttributes redirect) {
+        productService.addNewProduct(addNewProductDTO);
+        redirect.addFlashAttribute("successMessage", "Add new product successfully");
+        return "redirect:/admin/product";
     }
 
     @GetMapping("/product/update")
@@ -94,17 +111,26 @@ public class AdminController {
         editUserDTO.setAddress(user.getAddress());
         editUserDTO.setTelephone(user.getTelephone());
         editUserDTO.setRoleID(user.getRoles().stream().map(Role::getId).findFirst().orElseThrow(() -> new RuntimeException("Role Not Found")));
-        model.addAttribute("user",editUserDTO);
-        model.addAttribute("roles",roleService.findAllRole());
+        editUserDTO.setPassword(user.getPassword());
+        model.addAttribute("user", editUserDTO);
+        model.addAttribute("roles", roleService.findAllRole());
         return "update-user";
     }
 
     @PostMapping("/user/update")
     public String processUpdateUser(@ModelAttribute("user") @Valid EditUserDTO editUserDTO,
-                                    BindingResult result, RedirectAttributes redirect, Model model){
+                                    BindingResult result, RedirectAttributes redirect, Model model) {
 
-        if(result.hasErrors()){
-            model.addAttribute("roles",roleService.findAllRole());
+        User account = authService.findById(editUserDTO.getId());
+
+        if (editUserDTO.getPassword().equals("")) {
+            editUserDTO.setPassword(account.getPassword());
+        } else if (editUserDTO.getPassword().length() < 6) {
+            result.addError(new FieldError("user", "password", "Password must be at least 6 characters"));
+        }
+
+        if (result.hasErrors()) {
+            model.addAttribute("roles", roleService.findAllRole());
             return "/update-user";
         }
         adminService.editUser(editUserDTO);
@@ -113,9 +139,9 @@ public class AdminController {
     }
 
     @GetMapping("/user/delete/{id}")
-    public String processDeleteUser(@PathVariable String id, RedirectAttributes redirect){
+    public String processDeleteUser(@PathVariable String id, RedirectAttributes redirect) {
         adminService.deleteUser(id);
         redirect.addFlashAttribute("successMessage", "Delete user successfully");
-        return"redirect:/admin/user";
+        return "redirect:/admin/user";
     }
 }

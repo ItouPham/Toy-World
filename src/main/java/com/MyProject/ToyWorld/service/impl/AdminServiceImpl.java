@@ -14,7 +14,6 @@ import java.util.Collections;
 
 @Service
 @Transactional
-
 public class AdminServiceImpl implements AdminService {
     private UserRepository userRepository;
     private RoleService roleService;

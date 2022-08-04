@@ -4,42 +4,44 @@
       layout:decorate="~{layouts/admin-layout.html}">
 
 <head>
+    <title>Add New Product</title>
 </head>
 
 <body>
-    <main layout:fragment="content">
-        <div class="container">
-            <div class="col-6 m-auto">
-                <div class="p-5 border mt-5 mb-5 shadow">
-                    <h1 class="text-center mb-5">Add New Product</h1>
+<main layout:fragment="content">
+    <div class="container">
+        <div class="col-6 m-auto">
+            <div class="p-5 border mt-5 mb-5 shadow">
+                <h1 class="text-center mb-5">Add New Product</h1>
+                <form th:action="@{/admin/product/add}" method="post" th:object="${product}"
+                      enctype="multipart/form-data">
                     <div class="d-flex justify-content-between mb-4">
                         <h6>Product Name:</h6>
-                        <input type="text" class="p-1 w-75">
+                        <input type="text" class="p-1 w-75" th:field="*{productName}">
                     </div>
                     <div class="d-flex justify-content-between mb-4">
                         <h6>Category:</h6>
-                        <select name="" id="" style="width:65%" class="p-1 w-75">
-                            <option value="" selected>KID TOYS</option>
-                            <option value="">DOLLS</option>
-                            <option value="">KEY TOYS</option>
-                            <option value="">BOY TOYS</option>
+                        <select class="p-1 w-75"
+                                th:field="*{categoryID}">
+                            <option th:each="category : ${categories}" th:value="${category.id}"
+                                    th:text="${category.categoryName}"></option>
                         </select>
                     </div>
                     <div class="d-flex justify-content-between mb-4">
                         <h6>Price:</h6>
-                        <input type="number" style="width:65%" class="p-1 w-75">
+                        <input type="number" style="width:65%" class="p-1 w-75" th:field="*{price}">
                     </div>
                     <div class="d-flex justify-content-between mb-4">
                         <h6>Quantity:</h6>
-                        <input type="number" style="width:65%" class="p-1 w-75">
+                        <input type="number" style="width:65%" class="p-1 w-75" th:field="*{quantity}">
                     </div>
                     <div class="d-flex justify-content-between mb-4">
                         <h6>Size(Feet):</h6>
-                        <input type="number" style="width:65%" class="p-1 w-75">
+                        <input type="number" style="width:65%" class="p-1 w-75" th:field="*{size}">
                     </div>
                     <div class="d-flex justify-content-between mb-4">
                         <h6>Description:</h6>
-                        <input type="text" style="width:65%" class="p-1 w-75">
+                        <input type="text" style="width:65%" class="p-1 w-75" th:field="*{productDescription}">
                     </div>
                     <div class="d-flex justify-content-between mb-4">
                         <h6>Image:</h6>
@@ -55,20 +57,25 @@
                                         reader.readAsDataURL(fileInput.files[0]);
                                     }
                                 }
+
+
                             </script>
                             <img id="image" th:src="@{/images/no-image.png}" width="200" height="200"
-                                class="img-fluid ${3|rounded-top, rounded-right,rounded-bottom,rounded-left,rounded-circle, |}"
-                                alt="">
-                            <input type="file" onchange="chooseFile(this)" class="p-1 w-75"></input>
+                                 class="img-fluid ${3|rounded-top, rounded-right,rounded-bottom,rounded-left,rounded-circle, |}"
+                                 alt="">
+                            <input type="file" name="fileImage" id="fileImage" onchange="chooseFile(this)" class="p-1 w-75"
+                                   accept="image/jpeg, image/png"></input>
                         </div>
                     </div>
                     <div class="text-center">
-                        <button type="button" class="btn btn-success p-2 ps-5 pe-5 mt-5 common-background-hover">Add</button>
+                        <button type="submit" class="btn btn-success p-2 ps-5 pe-5 mt-5 common-background-hover">Add
+                        </button>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
-    </main>
+    </div>
+</main>
 </body>
 
 </html>

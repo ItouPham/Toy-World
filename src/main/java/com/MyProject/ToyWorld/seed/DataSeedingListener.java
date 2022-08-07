@@ -35,10 +35,6 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
 
     @Override
     public void onApplicationEvent(ContextRefreshedEvent arg0) {
-        if(!productRepository.findByProductName("Product 1").isPresent()){
-            productRepository.save(new Product("Product 1"));
-        }
-
         //Category
         if(!categoryRepository.findByCategoryName("KID TOYS").isPresent()){
             categoryRepository.save(new Category("KID TOYS"));

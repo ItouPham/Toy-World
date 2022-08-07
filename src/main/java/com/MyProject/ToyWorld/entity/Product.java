@@ -30,7 +30,7 @@ public class Product {
     @Column
     private String productImage;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "category_id")
     private Category category;
 
@@ -129,5 +129,13 @@ public class Product {
                 ", quantity=" + quantity +
                 ", category=" + category +
                 '}';
+    }
+
+    @Transient
+    public String getProductImagePath(){
+        if (productImage == null){
+            return null;
+        }
+        return "/uploads/images/" + productImage;
     }
 }

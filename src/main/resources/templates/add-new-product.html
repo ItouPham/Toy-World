@@ -57,14 +57,12 @@
                                         reader.readAsDataURL(fileInput.files[0]);
                                     }
                                 }
-
-
                             </script>
                             <img id="image" th:src="@{/images/no-image.png}" width="200" height="200"
                                  class="img-fluid ${3|rounded-top, rounded-right,rounded-bottom,rounded-left,rounded-circle, |}"
                                  alt="">
-                            <input type="file" name="fileImage" id="fileImage" onchange="chooseFile(this)" class="p-1 w-75"
-                                   accept="image/jpeg, image/png"></input>
+                            <input type="file" name="imageFile" id="fileImage" onchange="chooseFile(this)"
+                                   class="p-1 w-75" accept="image/jpeg, image/png"></input>
                         </div>
                     </div>
                     <div class="text-center">

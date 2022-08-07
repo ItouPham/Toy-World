@@ -1,13 +1,25 @@
 package com.MyProject.ToyWorld;
 
+import com.MyProject.ToyWorld.config.StorageProperties;
+import com.MyProject.ToyWorld.service.StorageService;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
+@EnableConfigurationProperties(StorageProperties.class)
 public class ToyWorldApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(ToyWorldApplication.class, args);
 	}
 
+	@Bean
+	CommandLineRunner init(StorageService storageService){
+		return (args -> {
+			storageService.init();
+		});
+	}
 }

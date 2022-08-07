@@ -22,7 +22,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category findById(Long id) {
-        return categoryRepository.findByCategoryId(id).orElseThrow(() -> new RuntimeException("Category Not Found"));
+        return categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Category Not Found"));
     }
 
 }

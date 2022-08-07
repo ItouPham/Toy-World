@@ -2,10 +2,12 @@ package com.MyProject.ToyWorld.dto.admin;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.persistence.Column;
+import javax.persistence.Transient;
 import java.math.BigDecimal;
 
-public class AddNewProductDTO {
+public class EditProductDTO {
+
+    private Long id;
 
     private String productName;
 
@@ -23,10 +25,11 @@ public class AddNewProductDTO {
 
     private MultipartFile imageFile;
 
-    public AddNewProductDTO() {
+    public EditProductDTO() {
     }
 
-    public AddNewProductDTO(String productName, String productDescription, Integer size, BigDecimal price, Integer quantity, Long categoryID, String productImage, MultipartFile imageFile) {
+    public EditProductDTO(Long id, String productName, String productDescription, Integer size, BigDecimal price, Integer quantity, Long categoryID, String productImage, MultipartFile imageFile) {
+        this.id = id;
         this.productName = productName;
         this.productDescription = productDescription;
         this.size = size;
@@ -35,6 +38,10 @@ public class AddNewProductDTO {
         this.categoryID = categoryID;
         this.productImage = productImage;
         this.imageFile = imageFile;
+    }
+
+    public Long getId() {
+        return id;
     }
 
     public String getProductName() {
@@ -61,13 +68,16 @@ public class AddNewProductDTO {
         return categoryID;
     }
 
-
     public String getProductImage() {
         return productImage;
     }
 
     public MultipartFile getImageFile() {
         return imageFile;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setProductName(String productName) {
@@ -104,13 +114,24 @@ public class AddNewProductDTO {
 
     @Override
     public String toString() {
-        return "AddNewProductDTO{" +
-                "productName='" + productName + '\'' +
+        return "EditProductDTO{" +
+                "id=" + id +
+                ", productName='" + productName + '\'' +
                 ", productDescription='" + productDescription + '\'' +
                 ", size=" + size +
                 ", price=" + price +
                 ", quantity=" + quantity +
                 ", categoryID=" + categoryID +
+                ", productImage='" + productImage + '\'' +
+                ", imageFile=" + imageFile +
                 '}';
+    }
+
+    @Transient
+    public String getProductImagePath(){
+        if (productImage == null){
+            return null;
+        }
+        return "/uploads/images/" + productImage;
     }
 }

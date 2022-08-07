@@ -2,7 +2,9 @@ package com.MyProject.ToyWorld.controller;
 
 import com.MyProject.ToyWorld.dto.admin.AddNewProductDTO;
 import com.MyProject.ToyWorld.dto.admin.AddNewUserDTO;
+import com.MyProject.ToyWorld.dto.admin.EditProductDTO;
 import com.MyProject.ToyWorld.dto.admin.EditUserDTO;
+import com.MyProject.ToyWorld.entity.Product;
 import com.MyProject.ToyWorld.entity.Role;
 import com.MyProject.ToyWorld.entity.User;
 import com.MyProject.ToyWorld.service.*;
@@ -14,10 +16,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.swing.text.html.Option;
+
 import javax.validation.Valid;
-import java.io.Console;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin")
@@ -28,14 +28,16 @@ public class AdminController {
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     private CategoryService categoryService;
     private ProductService productService;
+    private StorageService storageService;
 
-    public AdminController(AdminService adminService, AuthService authService, RoleService roleService, BCryptPasswordEncoder bCryptPasswordEncoder, CategoryService categoryService, ProductService productService) {
+    public AdminController(AdminService adminService, AuthService authService, RoleService roleService, BCryptPasswordEncoder bCryptPasswordEncoder, CategoryService categoryService, ProductService productService, StorageService storageService) {
         this.adminService = adminService;
         this.authService = authService;
         this.roleService = roleService;
         this.bCryptPasswordEncoder = bCryptPasswordEncoder;
         this.categoryService = categoryService;
         this.productService = productService;
+        this.storageService = storageService;
     }
 
     @GetMapping()
@@ -45,7 +47,7 @@ public class AdminController {
 
     @GetMapping("/product")
     public String showProductList(Model model) {
-        model.addAttribute("products",productService.findAllProduct());
+        model.addAttribute("products", productService.findAllProduct());
         return "product-management";
     }
 
@@ -59,14 +61,44 @@ public class AdminController {
     @PostMapping("/product/add")
     public String processAddNewProduct(@ModelAttribute("product") AddNewProductDTO addNewProductDTO,
                                        RedirectAttributes redirect) {
-        productService.addNewProduct(addNewProductDTO);
+
+        adminService.addNewProduct(addNewProductDTO);
         redirect.addFlashAttribute("successMessage", "Add new product successfully");
         return "redirect:/admin/product";
     }
 
-    @GetMapping("/product/update")
-    public String showUpdateProductPage() {
+    @GetMapping("/product/update/{id}")
+    public String showUpdateProductPage(@PathVariable("id") Long id, Model model) {
+
+        Product product = productService.findProductById(id);
+        EditProductDTO editProductDTO = new EditProductDTO();
+        editProductDTO.setId(product.getId());
+        editProductDTO.setProductName(product.getProductName());
+        editProductDTO.setProductDescription(product.getProductDescription());
+        editProductDTO.setPrice(product.getPrice());
+        editProductDTO.setQuantity(product.getQuantity());
+        editProductDTO.setCategoryID(product.getCategory().getId());
+        editProductDTO.setProductImage(product.getProductImage());
+        editProductDTO.setSize(product.getSize());
+
+        model.addAttribute("categories", categoryService.findAllCategory());
+        model.addAttribute("product", editProductDTO);
         return "update-product";
+    }
+
+    @PostMapping("/product/update")
+    public String processUpdateProduct(@ModelAttribute("product") EditProductDTO editProductDTO,
+                                       RedirectAttributes redirect) {
+        adminService.editProduct(editProductDTO);
+        redirect.addFlashAttribute("successMessage", "Update product successfully");
+        return "redirect:/admin/product";
+    }
+
+    @GetMapping("/product/delete/{id}")
+    public String processDeleteProduct(@PathVariable Long id, RedirectAttributes redirect) {
+        adminService.deleteProduct(id);
+        redirect.addFlashAttribute("successMessage", "Delete product successfully");
+        return "redirect:/admin/product";
     }
 
     @GetMapping("/user")

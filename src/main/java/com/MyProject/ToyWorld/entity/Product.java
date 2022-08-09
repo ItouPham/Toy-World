@@ -41,6 +41,7 @@ public class Product {
     public Product(String productName) {
         this.productName = productName;
     }
+    
 
     public Product(Long id, String productName, String productDescription, Integer size, BigDecimal price, Integer quantity, Category category) {
         this.id = id;

@@ -1,6 +1,7 @@
 package com.MyProject.ToyWorld.security;
 
 
+import com.MyProject.ToyWorld.constant.Role;
 import com.MyProject.ToyWorld.repository.CartRepository;
 import com.MyProject.ToyWorld.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
@@ -59,6 +60,8 @@ public class WebSecurityConfig {
                 .and().authorizeRequests()
                 .antMatchers("/test").authenticated()
                 .antMatchers("/cart").authenticated()
+                .antMatchers("/product/addToCart").authenticated()
+                .antMatchers("/admin/**").hasAuthority(Role.ADMIN.name())
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()

@@ -13,6 +13,7 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.UUID;
 
@@ -48,6 +49,7 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
         if(!categoryRepository.findByCategoryName("BOY TOYS").isPresent()){
             categoryRepository.save(new Category("BOY TOYS"));
         }
+
 
         //Role
         if (!roleRepository.findByRoleName(com.MyProject.ToyWorld.constant.Role.ADMIN.name()).isPresent()) {

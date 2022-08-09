@@ -9,10 +9,15 @@
 
 <body>
 <main layout:fragment="content">
+    <div class="bg-success bg-opacity-75 p-2 text-center shadow">
+            <span class="fw-bold">
+                <a class="text-decoration-none text-dark common-hover" th:href="@{/}">Home </a> /
+                <span class="text-white">Register</span>
+            </span>
+    </div>
     <div class="container">
         <div class="w-75 m-auto">
             <div class="w-50 ms-auto me-auto mt-4 mb-4 border shadow text-center pt-4 pb-4">
-
                 <h1 class="text-center m-2">Register</h1>
                 <p>Already have an account?<a th:href="@{/login}"
                                               class="text-decoration-none text-dark fw-bold common-hover"> Login</a></p>

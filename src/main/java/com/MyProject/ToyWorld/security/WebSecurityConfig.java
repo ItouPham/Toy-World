@@ -59,6 +59,7 @@ public class WebSecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                 .and().authorizeRequests()
                 .antMatchers("/test").authenticated()
+                .antMatchers("/profile/**").authenticated()
                 .antMatchers("/cart").authenticated()
                 .antMatchers("/product/addToCart").authenticated()
                 .antMatchers("/admin/**").hasAuthority(Role.ADMIN.name())

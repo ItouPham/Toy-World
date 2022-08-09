@@ -41,7 +41,15 @@ public class Product {
     public Product(String productName) {
         this.productName = productName;
     }
-    
+
+    public Product(String productName, Integer size, BigDecimal price, Integer quantity, String productImage, Category category) {
+        this.productName = productName;
+        this.size = size;
+        this.price = price;
+        this.quantity = quantity;
+        this.productImage = productImage;
+        this.category = category;
+    }
 
     public Product(Long id, String productName, String productDescription, Integer size, BigDecimal price, Integer quantity, Category category) {
         this.id = id;

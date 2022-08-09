@@ -38,6 +38,11 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
+    public User findUserByEmail(String email) {
+        return userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User Not Found"));
+    }
+
+    @Override
     public void deleteUser(String id) {
         userRepository.deleteById(id);
     }

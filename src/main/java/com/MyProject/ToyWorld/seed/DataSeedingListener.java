@@ -50,6 +50,19 @@ public class DataSeedingListener implements ApplicationListener<ContextRefreshed
             categoryRepository.save(new Category("BOY TOYS"));
         }
 
+        //Product
+        if(!productRepository.findByProductName("Product 1").isPresent()){
+            productRepository.save(new Product("Product 1",3,new BigDecimal(25),12,"a1.jpg",categoryRepository.findById((long)1).get()));
+        }
+        if(!productRepository.findByProductName("Product 2").isPresent()){
+            productRepository.save(new Product("Product 2",3,new BigDecimal(25),12,"a2.jpg",categoryRepository.findById((long)2).get()));
+        }
+        if(!productRepository.findByProductName("Product 3").isPresent()){
+            productRepository.save(new Product("Product 3",3,new BigDecimal(25),12,"a3.jpg",categoryRepository.findById((long)3).get()));
+        }
+        if(!productRepository.findByProductName("Product 4").isPresent()){
+            productRepository.save(new Product("Product 4",3,new BigDecimal(25),12,"a4.jpg",categoryRepository.findById((long)4).get()));
+        }
 
         //Role
         if (!roleRepository.findByRoleName(com.MyProject.ToyWorld.constant.Role.ADMIN.name()).isPresent()) {

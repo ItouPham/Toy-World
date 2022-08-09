@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/customer-layout.html}">
+<head>
+    <title>Profile</title>
+</head>
+<body>
+<main layout:fragment="content">
+    <div class="bg-success bg-opacity-75 p-2 text-center shadow">
+            <span class="fw-bold">
+                <a class="text-decoration-none text-dark common-hover" th:href="@{/}">Home </a> /
+                <span class="text-white">Profile</span>
+            </span>
+    </div>
+    <div class="container">
+        <div class="col-4 m-auto">
+            <div class="p-5 border mt-5 mb-5 shadow">
+                <h1 class="text-center mb-5">Profile</h1>
+                <div class="d-flex justify-content-between mb-4 align-items-center">
+                    <h6 class="h-100 m-0">Email:</h6>
+                    <span class="p-0" style="width: 65%;" th:text="${user.email}"></span>
+                </div>
+                <div class="d-flex justify-content-between mb-4 align-items-center">
+                    <h6 class="h-100 m-0">First Name:</h6>
+                    <p type="text" class="p-0 m-0" style="width: 65%;" th:text="${user.firstName}"></p>
+                </div>
+                <div class="d-flex justify-content-between mb-4">
+                    <h6 class="h-100 m-0">Last Name:</h6>
+                    <p type="text" class="p-0 m-0" style="width: 65%;" th:text="${user.lastName}"></p>
+                </div>
+                <div class="d-flex justify-content-between mb-4">
+                    <h6 class="h-100 m-0">Telephone:</h6>
+                    <p type="text" class="p-0 m-0" style="width: 65%;" th:text="${user.telephone}"></p>
+                </div>
+                <div class="d-flex justify-content-between mb-4">
+                    <h6 class="h-100 m-0">Address:</h6>
+                    <p type="text" class="p-0 m-0" style="width: 65%;" th:text="${user.address}"></p>
+                </div>
+                <div class="text-center">
+                    <a th:href="@{profile/update}" class="btn btn-success p-2 ps-5 pe-5 mt-4">Update</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>

@@ -4,6 +4,7 @@
       layout:decorate="~{layouts/customer-layout.html}">
 
 <head>
+    <title>Product</title>
 </head>
 
 <body>
@@ -23,9 +24,9 @@
                     <h5 class="fw-bold">Menu</h5>
                     <ul class="p-0">
                         <li class="list-unstyled side-menu-item"><a class="text-dark text-decoration-none"
-                                                                    href="#">HOME</a></li>
+                                                                    th:href="@{/}">HOME</a></li>
                         <li class="list-unstyled side-menu-item"><a class="text-dark text-decoration-none"
-                                                                    href="#">PRODUCT</a></li>
+                                                                    th:href="@{/product}">PRODUCT</a></li>
                         <li class="list-unstyled side-menu-item"><a class="text-dark text-decoration-none"
                                                                     href="#">ABOUT US</a></li>
                         <li class="list-unstyled side-menu-item"><a class="text-dark text-decoration-none"
@@ -52,48 +53,48 @@
                     <ul class="p-0">
                         <li class="list-unstyled side-menu-item">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
+                                <input class="form-check-input" type="checkbox" value="" id="checkbox5%">
+                                <label class="form-check-label" for="checkbox5%">
                                     5% or More
                                 </label>
                             </div>
                         </li>
                         <li class="list-unstyled side-menu-item">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
+                                <input class="form-check-input" type="checkbox" value="" id="checkbox10%">
+                                <label class="form-check-label" for="checkbox10%">
                                     10% or More
                                 </label>
                             </div>
                         </li>
                         <li class="list-unstyled side-menu-item">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
+                                <input class="form-check-input" type="checkbox" value="" id="checkbox20%">
+                                <label class="form-check-label" for="checkbox20%">
                                     20% or More
                                 </label>
                             </div>
                         </li>
                         <li class="list-unstyled side-menu-item">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
+                                <input class="form-check-input" type="checkbox" value="" id="checkbox30%">
+                                <label class="form-check-label" for="checkbox30%">
                                     30% or More
                                 </label>
                             </div>
                         </li>
                         <li class="list-unstyled side-menu-item">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
+                                <input class="form-check-input" type="checkbox" value="" id="checkbox40%">
+                                <label class="form-check-label" for="checkbox40%">
                                     40% or More
                                 </label>
                             </div>
                         </li>
                         <li class="list-unstyled side-menu-item">
                             <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
+                                <input class="form-check-input" type="checkbox" value="" id="checkbox50%">
+                                <label class="form-check-label" for="checkbox50%">
                                     50% or More
                                 </label>
                             </div>
@@ -105,75 +106,16 @@
 
             <!-- PRODUCT -->
             <div class="col-9">
-                <div class="row justify-content-between">
-                    <div class="mb-4" style="width: 30%;">
+                <div class="row">
+                    <div th:each="product : ${products}" class="mb-4" style="width: 30%;">
                         <div class="card border border-dark text-center w-100">
-                            <img th:src="@{/images/a1.jpg}" class="card-img-top border-bottom" alt="...">
+                            <img th:src="@{${product.ProductImagePath}}" class="card-img-top border-bottom" alt="...">
                             <div class="card-body">
-                                <a class="text-decoration-none text-dark" href="#"><h5 class="card-title">Product 1</h5>
+                                <a class="text-decoration-none text-dark common-hover" th:href="@{/product/product-detail/{id}(id=${product.id})}">
+                                    <h5 class="card-title" th:text="${product.productName}"></h5>
                                 </a>
-                                <p class="card-text">$180.00</p>
-                                <a href="#" class="btn btn-primary w-75">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-4" style="width: 30%;">
-                        <div class="card border border-dark text-center w-100">
-                            <img th:src="@{/images/a1.jpg}" class="card-img-top border-bottom" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Product 1</h5>
-                                <p class="card-text">$180.00</p>
-                                <a href="#" class="btn btn-primary w-75">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-4" style="width: 30%;">
-                        <div class="card border border-dark text-center w-100" style="width: 30%">
-                            <img th:src="@{/images/a1.jpg}" class="card-img-top border-bottom" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Product 1</h5>
-                                <p class="card-text">$180.00</p>
-                                <a href="#" class="btn btn-primary w-75">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-4" style="width: 30%;">
-                        <div class="card border border-dark text-center w-100" style="width: 30%">
-                            <img th:src="@{/images/a1.jpg}" class="card-img-top border-bottom" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Product 1</h5>
-                                <p class="card-text">$180.00</p>
-                                <a href="#" class="btn btn-primary w-75">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-4" style="width: 30%;">
-                        <div class="card border border-dark text-center w-100" style="width: 30%">
-                            <img th:src="@{/images/a1.jpg}" class="card-img-top border-bottom" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Product 1</h5>
-                                <p class="card-text">$180.00</p>
-                                <a href="#" class="btn btn-primary w-75">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-4" style="width: 30%;">
-                        <div class="card border border-dark text-center w-100" style="width: 30%">
-                            <img th:src="@{/images/a1.jpg}" class="card-img-top border-bottom" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Product 1</h5>
-                                <p class="card-text">$180.00</p>
-                                <a href="#" class="btn btn-primary w-75">Add to cart</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="mb-4" style="width: 30%;">
-                        <div class="card border border-dark text-center w-100" style="width: 30%">
-                            <img th:src="@{/images/a1.jpg}" class="card-img-top border-bottom" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title">Product 1</h5>
-                                <p class="card-text">$180.00</p>
-                                <a href="#" class="btn btn-primary w-75">Add to cart</a>
+                                <p class="card-text">$<span th:text="${product.price}"></span></p>
+                                <a th:href="@{/product/product-detail/{id}(id=${product.id})}" class="btn btn-primary w-75 common-background-hover">Add to cart</a>
                             </div>
                         </div>
                     </div>

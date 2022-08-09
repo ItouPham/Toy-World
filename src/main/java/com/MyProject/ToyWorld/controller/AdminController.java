@@ -11,6 +11,7 @@ import com.MyProject.ToyWorld.service.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -18,6 +19,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import javax.validation.Valid;
+import java.io.IOException;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin")
@@ -88,14 +91,15 @@ public class AdminController {
 
     @PostMapping("/product/update")
     public String processUpdateProduct(@ModelAttribute("product") EditProductDTO editProductDTO,
-                                       RedirectAttributes redirect) {
+                                       RedirectAttributes redirect) throws IOException{
+
         adminService.editProduct(editProductDTO);
         redirect.addFlashAttribute("successMessage", "Update product successfully");
         return "redirect:/admin/product";
     }
 
     @GetMapping("/product/delete/{id}")
-    public String processDeleteProduct(@PathVariable Long id, RedirectAttributes redirect) {
+    public String processDeleteProduct(@PathVariable Long id, RedirectAttributes redirect) throws IOException {
         adminService.deleteProduct(id);
         redirect.addFlashAttribute("successMessage", "Delete product successfully");
         return "redirect:/admin/product";

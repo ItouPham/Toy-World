@@ -41,6 +41,7 @@
                 <th><strong>Product Name</strong></th>
                 <th><strong>Category</strong></th>
                 <th><strong>Price</strong></th>
+                <th><strong>Size</strong></th>
                 <th><strong>Quantity</strong></th>
                 <th class="text-center"><strong>Image</strong></th>
                 <th class="text-center"><strong>Edit</strong></th>
@@ -52,7 +53,8 @@
                 <td th:text="${index.count}"></td>
                 <td th:text="${product.productName}"></td>
                 <td th:text="${product.category.categoryName}"></td>
-                <td th:text="${product.price}"></td>
+                <td>$<span th:text="${product.price}"></span></td>
+                <td><span th:text="${product.size}"></span> feet</td>
                 <td th:text="${product.quantity}"></td>
                 <td class="text-center">
                     <img th:src="@{${product.ProductImagePath}}" alt="" width="100" height="100" class="border">

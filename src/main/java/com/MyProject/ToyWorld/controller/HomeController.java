@@ -16,4 +16,9 @@ public class HomeController {
     public String viewTestPage() {
         return "test";
     }
+
+    @RequestMapping("/403")
+    public String show403Page(){
+        return "403";
+    }
 }

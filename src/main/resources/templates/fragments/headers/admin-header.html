@@ -3,6 +3,7 @@
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
 <head>
 </head>
+
 <body>
 <header th:fragment="header">
     <div class="container p-3">
@@ -51,7 +52,7 @@
         <div class="container h-100">
             <div class="row h-100 align-content-center text-center">
                 <a class="col menu-item" th:href="@{/}">HOME</a>
-                <a class="col menu-item" href="#">PRODUCT</a>
+                <a class="col menu-item" th:href="@{/product}">PRODUCT</a>
                 <a class="col menu-item" th:href="@{/admin/product}">PRODUCT MANAGEMENT</a>
                 <a class="col menu-item" th:href="@{/admin/user}">USER MANAGEMENT</a>
             </div>

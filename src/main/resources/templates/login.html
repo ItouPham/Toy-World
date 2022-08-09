@@ -13,29 +13,25 @@
         <div class="w-75 m-auto">
             <div class="w-50 ms-auto me-auto mt-4 mb-4 border shadow text-center pt-4 pb-4 rounded-1">
                 <h1 class="text-center m-4">Login</h1>
-                <p>Don't have an account yet? <a href="#" class="text-decoration-none text-dark fw-bold common-hover">Sign
+                <p>Don't have an account yet? <a th:href="@{/register}" class="text-decoration-none text-dark fw-bold common-hover">Sign
                     up</a>
                     for free</p>
-                <form>
-                    <div th:if="${successMessage}"
-                         class="col-12 alert alert-success alert-dismissible fade show"
-                         role="alert"
-                    >
+                <form th:action="@{/login}" method="post">
+                    <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
                         <span th:text="${successMessage}"></span>
-                        <button type="button" class="close" data-dismiss="alert"
-                                aria-label="Close"
-                        >
-                            <span aria-hidden="true">&times; </span>
-                        </button>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                     </div>
-                    <input type="text" class="bg-secondary bg-opacity-25 w-75 p-2 mt-4 border border-0"
+                    <div th:if="${param.error}">
+                        <p class="text-danger">Invalid email or password</p>
+                    </div>
+                    <input type="text" name="email" class="bg-secondary bg-opacity-25 w-75 p-2 mt-4 border border-0"
                            placeholder="Your email">
-                    <input type="password" class="bg-secondary bg-opacity-25 w-75 p-2 mt-4 border border-0"
+                    <input type="password" name="password" class="bg-secondary bg-opacity-25 w-75 p-2 mt-4 border border-0"
                            placeholder="Password">
                     <div class="w-75 m-auto text-end mt-2 ">
                         <a href="#" class="text-decoration-none text-dark fw-bold">Forgot Password</a>
                     </div>
-                    <button type="button" class="btn btn-dark w-75 p-2 m-4 common-background-hover"> Login</button>
+                    <button type="submit" class="btn btn-dark w-75 p-2 m-4 common-background-hover"> Login</button>
                 </form>
 
                 <p>or Login with</p>

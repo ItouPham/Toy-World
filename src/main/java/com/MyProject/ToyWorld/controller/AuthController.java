@@ -3,6 +3,9 @@ package com.MyProject.ToyWorld.controller;
 import com.MyProject.ToyWorld.dto.RegisterDTO;
 import com.MyProject.ToyWorld.service.AuthService;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,7 +35,11 @@ public class AuthController {
 
     @GetMapping("/login")
     public String showLoginPage() {
-        return "login";
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if(authentication == null || authentication instanceof AnonymousAuthenticationToken){
+            return "login";
+        }
+        return "redirect:/";
     }
 
     @GetMapping("/register")
@@ -62,5 +69,10 @@ public class AuthController {
         authService.register(registerDTO);
         redirect.addFlashAttribute("successMessage", "Register account successfully");
         return "redirect:/login";
+    }
+
+    @GetMapping("/profile")
+    public String showProfilePage(){
+        return "profile";
     }
 }

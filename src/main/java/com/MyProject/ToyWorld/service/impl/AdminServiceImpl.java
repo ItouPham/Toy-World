@@ -13,7 +13,9 @@ import com.MyProject.ToyWorld.service.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
+import java.io.IOException;
 import java.util.Collections;
 import java.util.UUID;
 
@@ -57,7 +59,7 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void editProduct(EditProductDTO editProductDTO) {
+    public void editProduct(EditProductDTO editProductDTO) throws IOException {
         Product product = productService.findProductById(editProductDTO.getId());
         Category category = categoryService.findById(editProductDTO.getCategoryID());
         if (category.getId() != product.getCategory().getId()) {
@@ -69,6 +71,7 @@ public class AdminServiceImpl implements AdminService {
         product.setSize(editProductDTO.getSize());
         product.setQuantity(editProductDTO.getQuantity());
         if (!editProductDTO.getImageFile().isEmpty()) {
+            storageService.delete(product.getProductImage());
             UUID uuid = UUID.randomUUID();
             String uuString = uuid.toString();
             product.setProductImage(storageService.getStoredFilename(editProductDTO.getImageFile(), uuString));
@@ -78,7 +81,11 @@ public class AdminServiceImpl implements AdminService {
     }
 
     @Override
-    public void deleteProduct(Long Id) {
+    public void deleteProduct(Long Id) throws IOException {
+        Product product = productService.findProductById(Id);
+        if(!StringUtils.isEmpty(product.getProductImage())){
+            storageService.delete(product.getProductImage());
+        }
         productRepository.deleteById(Id);
     }
 

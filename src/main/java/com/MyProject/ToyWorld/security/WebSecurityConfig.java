@@ -1,6 +1,7 @@
 package com.MyProject.ToyWorld.security;
 
 
+import com.MyProject.ToyWorld.repository.CartRepository;
 import com.MyProject.ToyWorld.repository.UserRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,14 +21,16 @@ import org.springframework.security.web.SecurityFilterChain;
 @EnableWebSecurity
 public class WebSecurityConfig {
     private UserRepository userRepository;
+    private CartRepository cartRepository;
 
-    public WebSecurityConfig(UserRepository userRepository) {
+    public WebSecurityConfig(UserRepository userRepository, CartRepository cartRepository) {
         this.userRepository = userRepository;
+        this.cartRepository = cartRepository;
     }
 
     @Bean
     public UserDetailsService userDetailsService() {
-        return new CustomUserDetailService(userRepository);
+        return new CustomUserDetailService(userRepository, cartRepository);
     }
 
     @Bean
@@ -40,7 +43,6 @@ public class WebSecurityConfig {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
         authProvider.setUserDetailsService(userDetailsService());
         authProvider.setPasswordEncoder(passwordEncoder());
-
         return authProvider;
     }
 
@@ -56,11 +58,13 @@ public class WebSecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.ALWAYS)
                 .and().authorizeRequests()
                 .antMatchers("/test").authenticated()
+                .antMatchers("/cart").authenticated()
                 .anyRequest().permitAll()
                 .and()
                 .formLogin()
-                .usernameParameter("email")
-                .permitAll()
+                    .loginPage("/login")
+                    .usernameParameter("email")
+                    .permitAll()
                 .and()
                 .logout().logoutSuccessUrl("/").permitAll()
                 .and().exceptionHandling().accessDeniedPage("/403");

@@ -4,6 +4,7 @@
       layout:decorate="~{layouts/customer-layout.html}">
 
 <head>
+    <title>Product Detail</title>
 </head>
 
 <body>
@@ -16,59 +17,68 @@
             </span>
     </div>
     <h1 class="text-center m-5">Product Detail</h1>
+    <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+        <span th:text="${successMessage}"></span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
     <div class="container">
         <div class="row">
             <div class="col-4 text-center">
-                <img class="border border-dark" th:src="@{/images/a1.jpg}" alt="">
+                <img class="border border-dark" th:src="@{${product.ProductImagePath}}" alt="">
             </div>
             <div class="col-8">
-                <h3 class="text-danger">Product name</h3>
+                <h3 class="text-danger" th:text="${product.productName}"></h3>
                 <p>
-                <h5>$65.00</h5>
+                <h5>$<span th:text="${product.price}"></span></h5>
                 </p>
-                <p><strong>Size:</strong> 2 feet</p>
-                <p><strong>9</strong> left in stock</p>
-                <p><strong>Quantity</strong></p>
-                <div class="row">
-                    <div class="col-3">
-                        <div class="input-group p-2 text-center align-items-center bg-opacity-25 bg-secondary justify-content-between">
-                            <span class="minus" href="#"><i class="fa-solid fa-minus"></i></span>
-                            <span class="num">01</span>
-                            <span class="plus" href="#"><i class="fa-solid fa-plus"></i></span>
-                            <script>
-                            const plus = document.querySelector(".plus"),
-                                minus = document.querySelector(".minus"),
-                                num = document.querySelector(".num");
+                <p><strong>Size: </strong><span th:text="${product.size}"></span> feet</p>
+                <p><strong class="quantity" th:text="${product.quantity}"></strong> left in stock</p>
+                <form method="get" th:action="@{/product/addToCart}" th:object="${req}">
+                    <input name="id" type="hidden" th:field="*{productId}"/>
+                    <p><strong>Quantity</strong></p>
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="input-group p-2 text-center align-items-center bg-opacity-25 bg-secondary justify-content-between">
+                                <span class="minus" href="#"><i class="fa-solid fa-minus"></i></span>
+                                <input th:field="*{quantity}" class="cart-qty" th:value="1"></input>
+                                <span class="plus" href="#"><i class="fa-solid fa-plus"></i></span>
+                                <script>
+                                    const plus = document.querySelector(".plus"),
+                                    minus = document.querySelector(".minus"),
+                                    input = document.querySelector(".cart-qty"),
+                                    quantity = parseInt(document.querySelector(".quantity").innerHTML);
 
-                            let a = 1;
+                                    plus.addEventListener("click", () => {
+                                        let a = parseInt(input.value);
+                                        input.value = (a < quantity)? ++a : quantity;
+                                    });
 
-                            plus.addEventListener("click", () => {
-                                if (a < 10) {
-                                    a++;
-                                    a = (a < 10) ? "0" + a : a;
-                                    num.innerText = a;
-                                }
-                            });
+                                    minus.addEventListener("click", () => {
+                                        let a = parseInt(input.value);
+                                        input.value = (a>1)? --a : 1;
+                                    });
 
-                            minus.addEventListener("click", () => {
-                                if (a > 1) {
-                                    a--;
-                                    a = (a < 10) ? "0" + a : a;
-                                    num.innerText = a;
-                                }
-                            });                  
-                            </script>
+                                    input.oninput = (e) => {
+                                        let value =parseInt(e.target.value);
+                                        if(value > quantity ) {
+                                            input.value = quantity;
+                                        } else if (value<=1) {
+                                            input.value = 1
+                                        }
+                                    }
+                                </script>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <button type="submit" class="btn btn-dark w-100 h-100 common-background-hover">Add to bag</button>
                         </div>
                     </div>
-                    <div class="col-6">
-                        <button class="btn btn-dark w-100 h-100 common-background-hover">Add to bag</button>
-                    </div>
-                </div>
+                </form>
                 <div class="mt-4">
                     <i class="fa-solid fa-box-open"></i>
                     Free Shipping & Returns: On all orders over $200
                 </div>
-                <div class="p-4 mt-3 w-100 bg-opacity-25 bg-secondary text-center">
+                <div class="p-4 mt-3 w-75 bg-opacity-25 bg-secondary text-center">
                     <img th:src="@{/images/single-product-13.png}" alt="">
                     <p class="mt-2">Guarantee safe & secure checkout</p>
                 </div>

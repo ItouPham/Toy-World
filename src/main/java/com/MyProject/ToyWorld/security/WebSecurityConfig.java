@@ -61,6 +61,7 @@ public class WebSecurityConfig {
                 .antMatchers("/test").authenticated()
                 .antMatchers("/profile/**").authenticated()
                 .antMatchers("/cart").authenticated()
+                .antMatchers("/checkout").authenticated()
                 .antMatchers("/product/addToCart").authenticated()
                 .antMatchers("/admin/**").hasAuthority(Role.ADMIN.name())
                 .anyRequest().permitAll()

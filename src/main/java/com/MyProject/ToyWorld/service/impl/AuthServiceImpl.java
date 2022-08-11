@@ -1,11 +1,15 @@
 package com.MyProject.ToyWorld.service.impl;
 
 import com.MyProject.ToyWorld.constant.Role;
+import com.MyProject.ToyWorld.dto.EditProfileDTO;
 import com.MyProject.ToyWorld.dto.RegisterDTO;
 import com.MyProject.ToyWorld.entity.User;
 import com.MyProject.ToyWorld.repository.UserRepository;
 import com.MyProject.ToyWorld.service.AuthService;
 import com.MyProject.ToyWorld.service.RoleService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -28,8 +32,9 @@ public class AuthServiceImpl implements AuthService {
     }
 
     @Override
-    public List<User> findAll() {
-        return userRepository.findAll();
+    public Page<User> findAll(int pageNumber) {
+        Pageable pageable = PageRequest.of(pageNumber - 1,10);
+        return userRepository.findAll(pageable);
     }
 
     @Override
@@ -60,6 +65,20 @@ public class AuthServiceImpl implements AuthService {
         user.setFirstName(registerDTO.getFirstName());
         user.setLastName(registerDTO.getLastName());
         user.setPassword(bCryptPasswordEncoder.encode(registerDTO.getPassword()));
+        userRepository.save(user);
+    }
+
+    @Override
+    public void editProfile(EditProfileDTO editProfileDTO) {
+        User user = new User();
+        user.setId(editProfileDTO.getId());
+        user.setEmail(editProfileDTO.getEmail());
+        user.setFirstName(editProfileDTO.getFirstName());
+        user.setLastName(editProfileDTO.getLastName());
+        user.setTelephone(editProfileDTO.getTelephone());
+        user.setAddress(editProfileDTO.getAddress());
+        user.setRoles(Collections.singleton(roleService.findById(editProfileDTO.getRoleID())));
+        user.setPassword(editProfileDTO.getPassword());
         userRepository.save(user);
     }
 }

@@ -8,10 +8,10 @@ import com.MyProject.ToyWorld.entity.Product;
 import com.MyProject.ToyWorld.entity.Role;
 import com.MyProject.ToyWorld.entity.User;
 import com.MyProject.ToyWorld.service.*;
+import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.util.Optional;
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin")
@@ -50,7 +50,22 @@ public class AdminController {
 
     @GetMapping("/product")
     public String showProductList(Model model) {
-        model.addAttribute("products", productService.findAllProduct());
+        return showProductListByPage(model, 1);
+    }
+
+    @GetMapping("/product/page/{pageNumber}")
+    public String showProductListByPage(Model model, @PathVariable("pageNumber") int currentPage) {
+
+        Page<Product> page = productService.findAll(currentPage);
+        long totalItems = page.getTotalElements();
+        int totalPages = page.getTotalPages();
+
+        List<Product> listProduct = page.getContent();
+
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("products", listProduct);
         return "product-management";
     }
 
@@ -91,7 +106,7 @@ public class AdminController {
 
     @PostMapping("/product/update")
     public String processUpdateProduct(@ModelAttribute("product") EditProductDTO editProductDTO,
-                                       RedirectAttributes redirect) throws IOException{
+                                       RedirectAttributes redirect) throws IOException {
 
         adminService.editProduct(editProductDTO);
         redirect.addFlashAttribute("successMessage", "Update product successfully");
@@ -105,9 +120,24 @@ public class AdminController {
         return "redirect:/admin/product";
     }
 
-    @GetMapping("/user")
+    @GetMapping("user")
     public String showUserList(Model model) {
-        model.addAttribute("users", authService.findAll());
+        return showUserListByPage(model, 1);
+    }
+
+    @GetMapping("/user/page/{pageNumber}")
+    public String showUserListByPage(Model model, @PathVariable("pageNumber") int currentPage) {
+
+        Page<User> page = authService.findAll(currentPage);
+        long totalItems = page.getTotalElements();
+        int totalPages = page.getTotalPages();
+
+        List<User> listUsers = page.getContent();
+
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("users", listUsers);
         return "user-management";
     }
 
@@ -159,10 +189,12 @@ public class AdminController {
 
         User account = authService.findById(editUserDTO.getId());
 
-        if (editUserDTO.getPassword().equals("")) {
+        if ((editUserDTO.getPassword() == null) || (editUserDTO.getPassword().equals(""))) {
             editUserDTO.setPassword(account.getPassword());
         } else if (editUserDTO.getPassword().length() < 6) {
             result.addError(new FieldError("user", "password", "Password must be at least 6 characters"));
+        } else {
+            editUserDTO.setPassword(bCryptPasswordEncoder.encode(account.getPassword()));
         }
 
         if (result.hasErrors()) {

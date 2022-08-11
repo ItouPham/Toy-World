@@ -1,5 +1,6 @@
 package com.MyProject.ToyWorld.controller;
 
+import com.MyProject.ToyWorld.dto.EditProfileDTO;
 import com.MyProject.ToyWorld.dto.RegisterDTO;
 import com.MyProject.ToyWorld.dto.admin.EditUserDTO;
 import com.MyProject.ToyWorld.entity.Role;
@@ -7,11 +8,13 @@ import com.MyProject.ToyWorld.entity.User;
 import com.MyProject.ToyWorld.security.CustomUserDetails;
 import com.MyProject.ToyWorld.service.AdminService;
 import com.MyProject.ToyWorld.service.AuthService;
+import com.MyProject.ToyWorld.service.RoleService;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -26,10 +29,14 @@ import javax.validation.Valid;
 public class AuthController {
     private AuthService authService;
     private AdminService adminService;
+    private RoleService roleService;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public AuthController(AuthService authService, AdminService adminService) {
+    public AuthController(AuthService authService, AdminService adminService, RoleService roleService, BCryptPasswordEncoder bCryptPasswordEncoder) {
         this.authService = authService;
         this.adminService = adminService;
+        this.roleService = roleService;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     @InitBinder
@@ -87,35 +94,41 @@ public class AuthController {
     public String showUpdateProfilePage(@AuthenticationPrincipal CustomUserDetails loggedUser,
                                         Model model){
         User user = authService.findUserByEmail(loggedUser.getUsername());
-        EditUserDTO editUserDTO = new EditUserDTO();
-        editUserDTO.setId(user.getId());
-        editUserDTO.setEmail(user.getEmail());
-        editUserDTO.setFirstName(user.getFirstName());
-        editUserDTO.setLastName(user.getLastName());
-        editUserDTO.setTelephone(user.getTelephone());
-        editUserDTO.setAddress(user.getAddress());
-        model.addAttribute("user",editUserDTO);
+        EditProfileDTO editProfileDTO = new EditProfileDTO();
+        editProfileDTO.setId(user.getId());
+        editProfileDTO.setEmail(user.getEmail());
+        editProfileDTO.setFirstName(user.getFirstName());
+        editProfileDTO.setLastName(user.getLastName());
+        editProfileDTO.setTelephone(user.getTelephone());
+        editProfileDTO.setAddress(user.getAddress());
+        editProfileDTO.setPassword(loggedUser.getPassword());
+        model.addAttribute("user",editProfileDTO);
+        model.addAttribute("roles",roleService.findAllRole());
         return "update-profile";
     }
 
-//    @PostMapping("/profile/update")
-//    public String processUpdateProfile(@ModelAttribute("user") @Valid EditUserDTO editUserDTO,
-//                                       RedirectAttributes redirect, CustomUserDetails loggedUser,
-//                                       BindingResult result, Model model){
-//        if(editUserDTO.getPassword() == ""){
-//            editUserDTO.setPassword(loggedUser.getPassword());
-//        }else if(editUserDTO.getPassword().length() < 6){
-//            result.addError(new FieldError("user", "password", "Password must be at least 6 characters"));
-//        }
-//        User user = authService.findUserByEmail(loggedUser.getUsername());
-//        editUserDTO.setRoleID(user.getRoles().stream().map(Role::getId).findFirst().orElseThrow(() -> new RuntimeException("Role Not Found")));
-//
-//        if (result.hasErrors()) {
-//            return "/update-profile";
-//        }
-//
-//        adminService.editUser(editUserDTO);
-//        redirect.addFlashAttribute("successMessage", "Update profile successfully");
-//        return "redirect:/profile";
-//    }
+    @PostMapping("profile/update")
+    public String processUpdateProfile(@ModelAttribute("user") @Valid EditProfileDTO editProfileDTO,
+                                       BindingResult result, RedirectAttributes redirect, Model model){
+
+        User user = authService.findById(editProfileDTO.getId());
+
+        if((editProfileDTO.getPassword() == null) || (editProfileDTO.getPassword().equals(""))){
+            editProfileDTO.setPassword(user.getPassword());
+        }else if(editProfileDTO.getPassword().length() < 6){
+            result.addError(new FieldError("user","password", "Password must be at least 6 characters"));
+        } else{
+            editProfileDTO.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        }
+
+        if (result.hasErrors()) {
+            model.addAttribute("roles",roleService.findAllRole());
+            return "/update-profile";
+        }
+
+        editProfileDTO.setRoleID(user.getRoles().stream().map(Role::getId).findFirst().orElseThrow(() -> new RuntimeException("Role Not Found")));
+        authService.editProfile(editProfileDTO);
+        redirect.addFlashAttribute("successMessage", "Save profile successfully");
+        return "redirect:/profile";
+    }
 }

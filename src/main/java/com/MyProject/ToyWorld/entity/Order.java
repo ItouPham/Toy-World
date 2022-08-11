@@ -1,46 +1,74 @@
-package com.MyProject.ToyWorld.dto;
+package com.MyProject.ToyWorld.entity;
 
-import javax.validation.constraints.NotBlank;
+import javax.persistence.*;
+import java.math.BigDecimal;
 
-public class EditProfileDTO {
-    private String id;
+@Entity
+@Table(name = "orders")
+public class Order {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "order_id")
+    private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
+
+    @Column
+    private BigDecimal total;
+
+    @Column(length = 256)
     private String email;
 
-    private String password;
-
-    @NotBlank(message = "First name can not empty")
+    @Column
     private String firstName;
 
-    @NotBlank(message = "Last name can not empty")
+    @Column
     private String lastName;
 
+    @Column
     private String address;
 
+    @Column(length = 11)
     private String telephone;
 
-    private String roleID;
-
-    public EditProfileDTO() {
+    public Order() {
     }
 
-    public EditProfileDTO(String id, String email, String password, String firstName, String lastName, String address, String telephone, String roleID) {
+    public Order(Long id, User user, BigDecimal total, String email, String firstName, String lastName, String address, String telephone) {
         this.id = id;
+        this.user = user;
+        this.total = total;
         this.email = email;
-        this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
         this.telephone = telephone;
-        this.roleID = roleID;
     }
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public BigDecimal getTotal() {
+        return total;
+    }
+
+    public void setTotal(BigDecimal total) {
+        this.total = total;
     }
 
     public String getEmail() {
@@ -49,14 +77,6 @@ public class EditProfileDTO {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getFirstName() {
@@ -91,25 +111,17 @@ public class EditProfileDTO {
         this.telephone = telephone;
     }
 
-    public String getRoleID() {
-        return roleID;
-    }
-
-    public void setRoleID(String roleID) {
-        this.roleID = roleID;
-    }
-
     @Override
     public String toString() {
-        return "EditProfileDTO{" +
-                "id='" + id + '\'' +
+        return "Order{" +
+                "id=" + id +
+                ", user=" + user +
+                ", total=" + total +
                 ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", address='" + address + '\'' +
                 ", telephone='" + telephone + '\'' +
-                ", roleID='" + roleID + '\'' +
                 '}';
     }
 }

@@ -120,6 +120,67 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="m-5">
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+
+                            <li th:if="${currentPage > 1}" class="page-item">
+                                <a class="page-link" th:href="@{/product/page/1}">
+                                    <i class="fa-solid fa-angles-left"></i>
+                                </a>
+                            </li>
+                            <li th:unless="${currentPage > 1}" class="page-item">
+                        <span class="page-link">
+                            <i class="fa-solid fa-angles-left"></i>
+                        </span>
+                            </li>
+
+                            <li th:if="${currentPage > 1}" class="page-item">
+                                <a class="page-link" th:href="@{'/product/page/' + ${currentPage - 1}}">
+                                    <i class="fa-solid fa-angle-left"></i>
+                                </a>
+                            </li>
+                            <li th:unless="${currentPage > 1}" class="page-item">
+                        <span class="page-link">
+                            <i class="fa-solid fa-angle-left"></i>
+                        </span>
+                            </li>
+
+                            <li th:each="i : ${#numbers.sequence(1, totalPages)}" class="page-item">
+                                <a th:if="${i != currentPage}"
+                                   th:href="@{'/product/page/' + ${i}}"
+                                   class="page-link">[[${i}]]</a>
+                                <span th:unless="${i != currentPage}"
+                                      class="page-link active">[[${i}]]</span>
+                            </li>
+
+
+                            <li th:if="${currentPage < totalPages}" class="page-item">
+                                <a class="page-link" th:href="@{'/product/page/' + ${currentPage + 1}}">
+                                    <i class="fa-solid fa-angle-right"></i>
+                                </a>
+                            </li>
+                            <li th:unless="${currentPage < totalPages}" class="page-item">
+                        <span class="page-link">
+                            <i class="fa-solid fa-angle-right"></i>
+                        </span>
+                            </li>
+
+
+                            <li th:if="${currentPage < totalPages}" class="page-item">
+                                <a class="page-link" th:href="@{'/product/page/' + ${totalPages}}">
+                                    <i class="fa-solid fa-angles-right"></i>
+                                </a>
+                            </li>
+                            <li th:unless="${currentPage < totalPages}" class="page-item">
+                        <span class="page-link">
+                            <i class="fa-solid fa-angles-right"></i>
+                        </span>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
             </div>
             <!-- /PRODUCT -->
         </div>

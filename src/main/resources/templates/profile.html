@@ -17,6 +17,10 @@
         <div class="col-4 m-auto">
             <div class="p-5 border mt-5 mb-5 shadow">
                 <h1 class="text-center mb-5">Profile</h1>
+                <div th:if="${successMessage}" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <span th:text="${successMessage}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
                 <div class="d-flex justify-content-between mb-4 align-items-center">
                     <h6 class="h-100 m-0">Email:</h6>
                     <span class="p-0" style="width: 65%;" th:text="${user.email}"></span>
@@ -38,7 +42,7 @@
                     <p type="text" class="p-0 m-0" style="width: 65%;" th:text="${user.address}"></p>
                 </div>
                 <div class="text-center">
-                    <a th:href="@{profile/update}" class="btn btn-success p-2 ps-5 pe-5 mt-4">Update</a>
+                    <a th:href="@{/profile/update}" class="btn btn-success p-2 ps-5 pe-5 mt-4">Update</a>
                 </div>
             </div>
         </div>

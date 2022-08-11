@@ -1,9 +1,11 @@
 package com.MyProject.ToyWorld.controller;
 
 import com.MyProject.ToyWorld.dto.AddProductToCartDTO;
+import com.MyProject.ToyWorld.entity.Product;
 import com.MyProject.ToyWorld.service.CartService;
 import com.MyProject.ToyWorld.service.ProductService;
 import com.MyProject.ToyWorld.util.SecurityUtil;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,6 +13,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/product")
@@ -25,7 +29,21 @@ public class ProductController {
 
     @GetMapping()
     public String showProductPage(Model model) {
-        model.addAttribute("products", productService.findAllProduct());
+        return showListProductByPage(model, 1);
+    }
+
+    @GetMapping("/page/{pageNumber}")
+    public String showListProductByPage(Model model, @PathVariable("pageNumber") int currentPage){
+        Page<Product> page = productService.findAllProduct(currentPage);
+        long totalItems = page.getTotalElements();
+        int totalPages = page.getTotalPages();
+
+        List<Product> listProduct = page.getContent();
+
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("totalItems", totalItems);
+        model.addAttribute("totalPages", totalPages);
+        model.addAttribute("products", listProduct);
         return "product";
     }
 

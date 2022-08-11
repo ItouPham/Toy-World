@@ -2,26 +2,29 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/customer-layout.html}">
+
 <head>
     <title>Update Profile</title>
 </head>
+
 <body>
 <main layout:fragment="content">
     <div class="bg-success bg-opacity-75 p-2 text-center shadow">
             <span class="fw-bold">
                 <a class="text-decoration-none text-dark common-hover" th:href="@{/}">Home </a> /
-                <a class="text-decoration-none text-dark common-hover" th:href="@{/profile}">Profile </a>/
-                <span class="text-white">Update Profile</span>
+                <a class="text-decoration-none text-dark common-hover" th:href="@{/admin/product}">Product Management </a>/
+                <span class="text-white">Update Product</span>
             </span>
     </div>
-    <div class="container" >
+    <div class="container">
         <div class="col-6 m-auto">
             <div class="p-5 border mt-5 mb-5 shadow">
-                <h1 class="text-center mb-5">Update User</h1>
+                <h1 class="text-center mb-5">Update Profile</h1>
                 <form th:action="@{/profile/update}" method="post" th:object="${user}">
                     <div class="d-flex justify-content-between mb-4">
                         <h6>Email:</h6>
                         <div class="w-75">
+                            <input name="id" type="hidden" th:field="*{id}"/>
                             <input type="text" class="p-1 w-100 bg-secondary bg-opacity-25" th:readonly="true"
                                    th:field="*{email}">
                         </div>
@@ -64,6 +67,10 @@
                         <h6>Address:</h6>
                         <input type="text" class="p-1 w-75" th:field="*{address}">
                     </div>
+                        <select name="" id="" class="p-1 w-75" th:field="*{roleID}" hidden>
+                            <option th:each="option : ${roles}" th:value="${option.id}"
+                                    th:text="${option.roleName}"></option>
+                        </select>
                     <div class="text-center">
                         <button type="submit" class="btn btn-success p-2 ps-5 pe-5 mt-4 common-background-hover">Save
                         </button>
@@ -71,7 +78,9 @@
                 </form>
             </div>
         </div>
+
     </div>
 </main>
 </body>
+
 </html>

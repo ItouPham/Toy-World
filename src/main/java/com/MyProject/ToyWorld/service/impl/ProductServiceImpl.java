@@ -6,6 +6,9 @@ import com.MyProject.ToyWorld.repository.ProductRepository;
 import com.MyProject.ToyWorld.service.CategoryService;
 import com.MyProject.ToyWorld.service.ProductService;
 import com.MyProject.ToyWorld.service.StorageService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,8 +28,15 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public List<Product> findAllProduct() {
-        return productRepository.findAll();
+    public Page<Product> findAll(int pageNumber) {
+        Pageable pageable = PageRequest.of(pageNumber - 1,10);
+        return productRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Product> findAllProduct(int pageNumber) {
+        Pageable pageable = PageRequest.of(pageNumber - 1,9);
+        return productRepository.findAll(pageable);
     }
 
     @Override
